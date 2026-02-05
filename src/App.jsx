@@ -441,9 +441,9 @@ const Dashboard = ({ user, onLogout, showToast }) => {
 
 export default function App() {
   const [user, setUser] = useState({
-    name: "Bharath Kumar",
+    name: "Bharath",
     email: "bharath@modelsphere.ai",
-    avatar: "BK"
+    avatar: "B"
   });
   const [toast, setToast] = useState(null);
 
