@@ -1,0 +1,11 @@
+.env.local
+node_modules/
+build/
+dist/
+*.pyc
+__pycache__/
+.DS_Store
+.vscode/
+.idea/
+uploads/
+*.pkl
