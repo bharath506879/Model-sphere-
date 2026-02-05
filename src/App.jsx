@@ -181,10 +181,6 @@ const Login = ({ setAuth, showToast }) => {
           >
             {loading ? <Loader2 className="animate-spin" size={20} /> : 'Sign In'}
           </button>
-          
-          <div className="text-center text-sm text-slate-500">
-            Don't have an account? <span className="text-blue-600 font-medium cursor-pointer">Register</span>
-          </div>
         </form>
       </div>
     </div>

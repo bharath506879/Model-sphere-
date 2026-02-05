@@ -49,9 +49,9 @@ def login(data: dict):
         return {
             "token": "real-jwt-token",
             "user": {
-                "name": "Dr. Alex Rivera",
+                "name": "Bharath Kumar",
                 "email": email,
-                "avatar": "AR"
+                "avatar": "BK"
             }
         }
     raise HTTPException(status_code=401, detail="Invalid credentials")
