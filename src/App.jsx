@@ -5,8 +5,7 @@ import {
   Routes, 
   Route, 
   Navigate, 
-  useNavigate, 
-  Link 
+  useNavigate
 } from 'react-router-dom';
 import { 
   Activity, 
@@ -16,14 +15,12 @@ import {
   ShieldCheck, 
   Play, 
   LogOut, 
-  User, 
   CheckCircle, 
   AlertCircle, 
   FileText, 
   Loader2,
   Database,
-  BarChart2,
-  Grid
+  BarChart2
 } from 'lucide-react';
 
 /**
@@ -186,7 +183,7 @@ const Login = ({ setAuth, showToast }) => {
           </button>
           
           <div className="text-center text-sm text-slate-500">
-            Don't have an account? <a href="#" className="text-blue-600 font-medium hover:underline">Register</a>
+            Don't have an account? <span className="text-blue-600 font-medium cursor-pointer">Register</span>
           </div>
         </form>
       </div>
