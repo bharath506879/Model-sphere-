@@ -116,77 +116,6 @@ const Header = ({ user, onLogout }) => (
   </header>
 );
 
-const Login = ({ setAuth, showToast }) => {
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const data = await api.login(formData.email, formData.password);
-      // Assuming backend returns { token, user }
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      setAuth(data.user);
-      navigate('/dashboard');
-    } catch (err) {
-      console.error(err);
-      showToast(err.response?.data?.detail || 'Login failed - Check connection', 'error');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-center">
-          <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
-            <Activity className="text-white" size={28} />
-          </div>
-          <h2 className="text-2xl font-bold text-white mb-1">Welcome Back</h2>
-          <p className="text-blue-100 text-sm">Sign in to manage your AI models</p>
-        </div>
-        
-        <form onSubmit={handleSubmit} className="p-8 space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Email Address</label>
-            <input 
-              type="email" 
-              required
-              className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all"
-              placeholder="admin@modelsphere.ai"
-              value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
-            <input 
-              type="password" 
-              required
-              className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all"
-              placeholder="••••••••"
-              value={formData.password}
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
-            />
-          </div>
-
-          <button 
-            type="submit" 
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center gap-2 disabled:opacity-70"
-          >
-            {loading ? <Loader2 className="animate-spin" size={20} /> : 'Sign In'}
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-};
-
 // --- Results Components ---
 
 const ConfusionMatrix = ({ matrix, classes }) => {
@@ -511,15 +440,12 @@ const Dashboard = ({ user, onLogout, showToast }) => {
 };
 
 export default function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    name: "Bharath Kumar",
+    email: "bharath@modelsphere.ai",
+    avatar: "BK"
+  });
   const [toast, setToast] = useState(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -544,14 +470,10 @@ export default function App() {
         
         <Routes>
           <Route 
-            path="/login" 
-            element={!user ? <Login setAuth={setUser} showToast={triggerToast} /> : <Navigate to="/dashboard" />} 
-          />
-          <Route 
             path="/dashboard" 
-            element={user ? <Dashboard user={user} onLogout={handleLogout} showToast={triggerToast} /> : <Navigate to="/login" />} 
+            element={<Dashboard user={user} onLogout={handleLogout} showToast={triggerToast} />} 
           />
-          <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </div>
     </Router>
