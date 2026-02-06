@@ -24,9 +24,9 @@ import {
 
 /**
  * --- API LAYER ---
- * Connected to local backend at http://127.0.0.1:8000
+ * Connected to backend - uses environment variable for production
  */
-const API_BASE_URL = "http://127.0.0.1:8000/api";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000/api";
 
 const api = {
   login: async (email, password) => {
